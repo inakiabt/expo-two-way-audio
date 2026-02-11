@@ -288,7 +288,11 @@ class AudioEngine (context: Context) {
 
     fun stopPlayer() {
         audioSampleQueue.clear()
-        audioTrack.flush()
+        if (audioTrack.playState == AudioTrack.PLAYSTATE_PLAYING) {
+            audioTrack.pause()
+            audioTrack.flush()
+            audioTrack.play()
+        }
         isPlaying = false
         onOutputVolumeCallback?.invoke(0.0F)
     }
