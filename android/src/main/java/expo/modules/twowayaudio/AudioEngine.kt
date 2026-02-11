@@ -286,6 +286,13 @@ class AudioEngine (context: Context) {
         audioTrack.write(data, 0, data.size)
     }
 
+    fun stopPlayer() {
+        audioSampleQueue.clear()
+        audioTrack.flush()
+        isPlaying = false
+        onOutputVolumeCallback?.invoke(0.0F)
+    }
+
     fun bypassVoiceProcessing(bypass: Boolean) {
         if (bypass) {
             echoCanceler?.enabled = false
